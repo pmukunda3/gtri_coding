@@ -1,17 +1,14 @@
 // Problem 1: Create Program with the function to calculate the determinant of a 2 x 2 matrix
 //
 // calc_determinant([
-//
 //	 [1, 2],
 //	 [3, 4]
 //
 // calc_determinant([
-//
 //	 [5, 3],
 //   [3, 1]
 //
 // calc_determinant([
-//
 //	 [1, 1],
 //   [1, 1]
 

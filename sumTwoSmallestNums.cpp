@@ -1,15 +1,10 @@
 // Problem 3: Create a function that takes an array of numbers and returns the sum of the two lowest positive numbers.
 //
 // Show results for these inputs :
-//
 // sumTwoSmallestNums([19, 5, 42, 2, 77])
-//
 // sumTwoSmallestNums([10, 343445353, 3453445, 3453545353453])
-//
 // sumTwoSmallestNums([2, 9, 6, -1])
-//
 // sumTwoSmallestNums([879, 953, 694, -847, 342, 221, -91, -723, 791, -587])
-//
 // sumTwoSmallestNums([3683, 2902, 3951, -475, 1617, -2385])
 
 #include <cstdio>
@@ -80,6 +75,10 @@ int main() {
 		cout << "Output: " << sumTwoSmallestNums(inputs[i], size[i]) << "\n" << endl;
 	}
 
+	// Free dynamically allotted memory													// New addition
+	for (int i = 0; i < 5; i++)
+		delete[] inputs[i];
+	
 	// Exit with code 0
 	return 0;
 }

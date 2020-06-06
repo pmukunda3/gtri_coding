@@ -1,18 +1,12 @@
 ﻿//  Problem 4: Given an array of numbers, write a function that returns an array that :
-//
 //	·  Has all duplicate elements removed.
-//
 //	·  Is sorted from least value to greatest value.
 //
 //	Show results for these inputs
-//
 //	uniqueSort([1, 2, 4, 3]) ➞[1, 2, 3, 4]
-//
 //	uniqueSort([1, 4, 4, 4, 4, 4, 3, 2, 1, 2]) ➞[1, 2, 3, 4]
-//
 //	uniqueSort([6, 7, 3, 2, 1]) ➞[1, 2, 3, 6, 7]
 
-#include <cstdio>
 #include <iostream>
 #include <vector>
 #include <set>
@@ -50,7 +44,7 @@ int binarySearch(vector<int> vec, int l, int r, int target)
 /// <param name="input">- Input array</param>
 /// <param name="inSize">- Size of input array</param>
 /// <returns>Tuple where first element is output array and second element is size of output array</returns>
-tuple<int*,int> uniqueSort(int* input, int inSize)
+tuple<shared_ptr<int>,int> uniqueSort(int* input, int inSize)								// Changed from tuple<int*, int>
 {
 	int insertPos = 0, outSize;
 
@@ -76,7 +70,7 @@ tuple<int*,int> uniqueSort(int* input, int inSize)
 		// Insert element into numSet
 		numSet.insert(input[i]);
 
-		// Using binary search, find position at which to insert element into temp (Binary search Insertion sort)
+		// Using binary search, find position at which to insert element into temp (Binary Insertion sort)
 		outSize = (int)temp.size();
 		insertPos = binarySearch(temp, 0, outSize-1, input[i]);
 
@@ -89,9 +83,9 @@ tuple<int*,int> uniqueSort(int* input, int inSize)
 
 	// Convert output from vector to array
 	outSize = (int)temp.size();
-	int* output = new int[outSize];
+	shared_ptr<int> output = shared_ptr<int>(new int[outSize], default_delete<int[]>());	// Changed from int* output = new int[outSize];
 	for (int i = 0; i < outSize; i++) {
-		output[i] = temp[i];
+		output.get()[i] = temp[i];
 	}
 
 	// Return output array and output array size
@@ -112,7 +106,9 @@ int main()
 	int size[3] = { 4,10,5 };
 	
 	// Declare variable to store output
-	tuple<int*, int> output;
+	tuple<shared_ptr<int>, int> output;														// Changed from tuple<int*, int>
+
+	shared_ptr<int> outArray;																// Changed from int* outArray
 
 	for (int i = 0; i < 3; i++) {
 
@@ -127,16 +123,22 @@ int main()
 		output = uniqueSort(inputs[i], size[i]);
 
 		// Extract output array and output array size from tuple 
-		int* outArray = get<0>(output);
+		outArray = get<0>(output);
 		int outSize = get<1>(output);
 
 		// Print output array
 		cout << "Output: [";
 		for (int i = 0; i < outSize; i++ ) {
-			cout << outArray[i] << ", ";
+			cout << outArray.get()[i] << ", ";												// Changed from outArray[i]
 		}
 		cout << "\b \b\b \b]\n" << endl;
+
 	}
+
+	// Delete variables																		// New addition
+	delete[] inputs[0];
+	delete[] inputs[1];
+	delete[] inputs[2];
 
 	// Exit with code 0
 	return 0;

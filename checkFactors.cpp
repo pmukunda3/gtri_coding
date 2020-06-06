@@ -1,13 +1,9 @@
 //Problem 2: Write a function that returns true if all integers in an array are factors of a number, and false otherwise.
 //
 //Show the results for these inputs :
-//
 //checkFactors([2, 3, 4], 12)
-//
 //checkFactors([1, 2, 3, 8], 12)
-//
 //checkFactors([1, 2, 50], 100)
-//
 //checkFactors([3, 6], 9)
 
 #include <cstdio>
@@ -62,5 +58,10 @@ int main() {
 		// Print output
 		cout << "Output: " << (checkFactors(inputs[i], size[i], targets[i]) ? "true" : "false") << "\n" << endl;
 	}
+
+	// Free dynamically allotted memory													// New addition
+	for (int i = 0; i < 4; i++)
+		delete[] inputs[i];
+
 	return 0;
 }
